@@ -2,6 +2,10 @@
 <div class="log-in">
     <form action="/login" method="POST">
 
+        <% if(error){ %>
+            <span name="error"><%= error %></span>
+        <% } %>
+
         <label>Correo</label>
         <input type="email" name="email" placeholder="Ingresa tu correo" required>
 
@@ -13,6 +17,7 @@
     </form>
 </div>
 <p>¿No tienes una cuenta? Registrate aqui: <a href="/Registro" >Registrate!!</a></p>
+
 
 <style>
     body {

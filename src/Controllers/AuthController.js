@@ -1,11 +1,9 @@
-exports.login = (req, res) =>{
+const repUser = require('../repositories/userRepository')
+
+exports.login = async (req, res) =>{
     const email = req.body.email;
-    const clave = req.body.clave;
-
-    //Verificar Email
-
-    //Verificar Contraseña
-
+    req.session.UserId = await repUser.buscarUser(email);
+    res.send(`Felicidades ingresastes ${req.session.UserId}`)
     
 }
 

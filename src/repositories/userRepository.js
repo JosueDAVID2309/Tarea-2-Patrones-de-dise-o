@@ -26,11 +26,12 @@ exports.verificarUser = async (email, password) => {
     return rows[0] || null;
 };
 
-exports.buscarUser = async (id) => {
+exports.buscarUser = async (email) => {
     const [rows] = await db.query(
-        'SELECT * FROM usuarios WHERE id = ?',
-        [id]
+        'SELECT id FROM usuarios WHERE email = ?',
+        [email]
     );
 
     return rows[0] || null;
 };
+
