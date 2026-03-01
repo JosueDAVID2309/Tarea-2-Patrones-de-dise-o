@@ -1,0 +1,84 @@
+<h1>Registrate </h1>
+<div class="registro">
+    <form action="/registro" method="POST">
+        <label>Nombre</label>
+        <input type="text" name="nombre" placeholder="Ingresa tu nombre" required>
+
+        <label>Apellido</label>
+        <input type="text" name="apellido" placeholder="Ingresa tu apellido" required>
+        
+        <label>Usuario</label>
+        <input type="text" name="usuario" placeholder="Create un nombre de usuario" required>
+        
+        <label>Fecha de nacimiento</label>
+        <input type="date" name="f_nacimiento" required>
+        
+        <label>Genero</label>
+        <select name="genero">
+            <option value="M"> Hombre </option>
+            <option value="F"> Mujer </option>
+        </select>
+
+        <label>Correo</label>
+        <input type="email" name="correo" placeholder="Ingresa tu email" required>
+
+        <label>Contraseña</label>
+        <input type="password" name="clave" placeholder="Crea una contraseña" required>
+        
+        <button type="submit">Registrate</button>
+    </form>
+</div>
+<a href="/">Volver</a>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .registro {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 320px;
+        gap: 10px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    input,
+    select,
+    button {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    button,
+    input[type="submit"] {
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    p {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+</style>
