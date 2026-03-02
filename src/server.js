@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const path = require('path');
+const session = require('express-session');
 const Routes = require('./Routes/web');
 
 
@@ -12,6 +13,15 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 app.use(express.urlencoded({extended: true}))
 app.use(morgan("dev"));
+
+app.use(session({
+    secret: 'mi_secreto_super_seguro',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false
+    }
+}));
 
 //rutas
 app.use(Routes);
