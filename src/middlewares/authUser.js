@@ -1,12 +1,35 @@
 const userRep = require('../repositories/userRepository')
 
-exports.autenticarUser = async (req, res, next) =>{
-    const user = await userRep.verificarUser(req.body.email, req.body.clave);
+exports.autenticarUser = async (req, res, next) => {
+    try {
+        const user = await userRep.verificarUser(
+            req.body.email,
+            req.body.clave
+        );
 
-    if(user)
-        return next();
+        if (!user) {
+            return res.render('login', {
+                error: 'Correo u contraseña incorrectas'
+            });
+        }
 
-    res.render('login',{
-        error: 'Correo u contraseña incorrectas'
-    })
+        req.session.regenerate(err => {
+            if (err) return next(err);
+
+            req.session.UserId = user.id;
+            req.user = user; 
+            console.log(req.session.UserId);
+            next();
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.verificarSesion = (req, res, next) => {
+    if (!req.session.UserId) {
+        return res.redirect('/login');
+    }
+    next();
 }

@@ -6,14 +6,81 @@
     <title>Inicio</title>
 </head>
 <body>
-    <%- include('partials/formTask') %>
-    <%- include('partials/profileInfo', {
-        nombre: nombre,
-        apellido: apellido,
-        usuario: usuario,
-        f_nacimiento: f_nacimiento,
-        correo: correo,
-        genero: genero
-    }) %>
+
+<div class="layout">
+
+    <!-- Columna izquierda -->
+    <div class="left">
+        <%- include('partials/profileInfo', {
+            nombre: nombre,
+            apellido: apellido,
+            usuario: usuario,
+            f_nacimiento: f_nacimiento,
+            correo: correo,
+            genero: genero
+        }) %>
+    </div>
+
+    <!-- Columna derecha -->
+    <div class="right">
+        <div class="form-section">
+            <%- include('partials/formTask') %>
+        </div>
+
+        <div class="tasks-section">
+            <% tareas.forEach(tarea => { %>
+                <%- include('partials/tasks', {
+                    estado: tarea.estado,
+                    id: tarea.id,
+                    titulo: tarea.titulo,
+                    created_at: tarea.created_at,
+                    contenido: tarea.contenido
+                }) %>
+            <% }); %>
+        </div>
+    </div>
+
+</div>
+
 </body>
 </html>
+
+<style>
+body {
+    margin: 0;
+    background: #f4f6f9;
+    font-family: Arial, sans-serif;
+}
+
+/* Layout principal */
+.layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 25px;
+    padding: 30px;
+}
+
+/* Columna izquierda */
+.left {
+    align-self: start;
+}
+
+/* Columna derecha */
+.right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Opcional: limitar ancho del formulario */
+.form-section {
+    max-width: 600px;
+}
+
+/* Opcional: espacio para tareas */
+.tasks-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+</style>

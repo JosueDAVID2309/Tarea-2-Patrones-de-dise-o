@@ -1,0 +1,9 @@
+<% tareas.forEach(tarea => { %>
+    <%- include('partials/tasks', {
+        estado: tarea.estado,
+        id: tarea.id,
+        titulo: tarea.titulo,
+        created_at: tarea.created_at,
+        contenido: tarea.contenido
+    }) %>
+<% }); %>

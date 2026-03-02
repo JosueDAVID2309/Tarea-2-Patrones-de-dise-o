@@ -1,0 +1,8 @@
+<form action="<%= action %>" method="<%= method === 'GET' ? 'GET' : 'POST' %>">
+    
+    <% if (method !== 'GET' && method !== 'POST') { %>
+        <input type="hidden" name="_method" value="<%= method %>">
+    <% } %>
+
+    <input type="submit" value="<%= proceso %>">
+</form>

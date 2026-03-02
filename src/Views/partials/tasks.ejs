@@ -1,0 +1,101 @@
+<div class="tarea <%= estado ? 'completada' : 'pendiente' %>" id="tarea-<%= id %>">
+    <div class="tarea-header">
+        <h4><%= titulo %></h4>
+        <span class="fecha"><%= created_at %></span>
+    </div>
+    <hr>
+
+    <p class="contenido"> <%= contenido %> </p>
+    <hr>
+    <form action="/tarea/edit/<%= id %>" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+        <input type="submit" value="Editar">
+    </form>
+
+    <form action="/tarea/delete/<%= id %>" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="Eliminar">
+    </form>
+</div>
+
+<style>
+.tarea {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 15px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border-left: 6px solid #ccc;
+}
+
+.tarea:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.tarea-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tarea-header h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.fecha {
+    font-size: 13px;
+    color: #777;
+}
+
+.contenido {
+    margin: 10px 0 15px 0;
+    font-size: 15px;
+    color: #444;
+}
+
+.tarea form {
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.tarea input[type="submit"] {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.tarea input[value="Editar"] {
+    background-color: #3498db;
+    color: white;
+}
+
+.tarea input[value="Editar"]:hover {
+    background-color: #2980b9;
+}
+
+.tarea input[value="Eliminar"] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.tarea input[value="Eliminar"]:hover {
+    background-color: #c0392b;
+}
+
+/* Estados */
+.completada {
+    border-left-color: #2ecc71;
+}
+
+.pendiente {
+    border-left-color: #e74c3c;
+}
+</style>
+

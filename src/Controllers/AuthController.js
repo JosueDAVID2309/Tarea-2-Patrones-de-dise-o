@@ -1,18 +1,22 @@
 const repUser = require('../repositories/userRepository')
+const repTasks = require('../repositories/taskRepository');
+const userService = require('../service/userService')
 
 exports.login = async (req, res) =>{
-    const email = req.body.email;
-    const user = await repUser.buscarUser(email);
-    req.session.UserId = user.id;
+    const user = req.user; 
+    const tasks = await repTasks.obtenerTareas();
+    
+
     res.render('inicio', {
         nombre: user.nombre,
         apellido: user.apellido,
         usuario: user.username,
-        f_nacimiento: user.f_nacimiento,
+        f_nacimiento: userService.formatearFecha(user.f_nacimiento),
         correo: user.email,
-        genero: user.genero === 'M' ? 'Hombre': 'Mujer'
+        genero: user.genero === 'M' ? 'Hombre': 'Mujer',
+        tareas: tasks
     });
-    console.log(user);
+
 }
 
 exports.registro = async (req, res) =>{
@@ -21,14 +25,17 @@ exports.registro = async (req, res) =>{
         req.body.correo, req.body.clave, req.body.genero
     );
 
+    const tasks = await repTasks.obtenerTareas();
     req.session.UserId = user;
     res.render('inicio', {
         nombre: user.nombre,
         apellido: user.apellido,
         usuario: user.username,
-        f_nacimiento: user.f_nacimiento,
+        f_nacimiento: userService.formatearFecha(user.f_nacimiento),
         correo: user.email,
-        genero: user.genero === 'M' ? 'Hombre': 'Mujer'
+        genero: user.genero === 'M' ? 'Hombre': 'Mujer',
+        tareas: tasks
     });
-    console.log(req.session.UserId);
+
+    console.log(req.session.UserId)
 }

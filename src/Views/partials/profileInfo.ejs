@@ -1,8 +1,7 @@
 <div class="perfil">
-    <div class="img-perfil">
-        <img src="" alt="">
-    </div>
     <div class="info-perfil">
+        <h3>Informacion Personal</h3>
+        <hr>
         <p><strong>Nombre :</strong> <%= nombre %> </p>
         <p><strong>Apellido :</strong> <%= apellido %> </p>
         <p><strong>Usuario :</strong> <%= usuario %></p>
@@ -11,3 +10,30 @@
         <p><strong>Genero :</strong> <%= genero %> </p>
     </div>
 </div>
+<style>
+.perfil {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+
+.info-perfil {
+    font-size: 15px;
+    color: #444;
+}
+
+.info-perfil p {
+    margin: 6px 0;
+}
+
+.info-perfil strong {
+    color: #222;
+}
+</style>
