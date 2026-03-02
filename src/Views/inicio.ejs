@@ -7,5 +7,13 @@
 </head>
 <body>
     <%- include('partials/formTask') %>
+    <%- include('partials/profileInfo', {
+        nombre: nombre,
+        apellido: apellido,
+        usuario: usuario,
+        f_nacimiento: f_nacimiento,
+        correo: correo,
+        genero: genero
+    }) %>
 </body>
 </html>

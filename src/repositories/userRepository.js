@@ -28,7 +28,7 @@ exports.verificarUser = async (email, password) => {
 
 exports.buscarUser = async (email) => {
     const [rows] = await db.query(
-        'SELECT id FROM usuarios WHERE email = ?',
+        'SELECT * FROM usuarios WHERE email = ?',
         [email]
     );
 

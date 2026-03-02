@@ -1,17 +1,17 @@
 const db = require('../config/database');
 
-exports.obtenerTareas = async (filters = {}) => {
+exports.obtenerTareas = async (filtros = {}) => {
     let query = 'SELECT * FROM tareas WHERE 1=1';
     const params = [];
 
-    if (filters.userId) {
+    if (filtros.userId) {
         query += ' AND user_id = ?';
-        params.push(filters.userId);
+        params.push(filtros.userId);
     }
 
-    if (filters.status) {
-        query += ' AND status = ?';
-        params.push(filters.status);
+    if (filtros.estado) {
+        query += ' AND estado = ?';
+        params.push(filtros.estado);
     }
 
     const [rows] = await db.query(query, params);

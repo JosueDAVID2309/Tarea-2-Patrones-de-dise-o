@@ -2,10 +2,17 @@ const repUser = require('../repositories/userRepository')
 
 exports.login = async (req, res) =>{
     const email = req.body.email;
-    req.session.UserId = await repUser.buscarUser(email);
-    console.log(req.session.UserId)
-    res.send(`Felicidades ingresastes ${req.session.UserId.id}`)
-    
+    const user = await repUser.buscarUser(email);
+    req.session.UserId = user.id;
+    res.render('inicio', {
+        nombre: user.nombre,
+        apellido: user.apellido,
+        usuario: user.username,
+        f_nacimiento: user.f_nacimiento,
+        correo: user.email,
+        genero: user.genero === 'M' ? 'Hombre': 'Mujer'
+    });
+    console.log(user);
 }
 
 exports.registro = async (req, res) =>{
@@ -15,6 +22,13 @@ exports.registro = async (req, res) =>{
     );
 
     req.session.UserId = user;
-    res.send(`Felicidades ingresastes ${req.session.UserId}`)
-
+    res.render('inicio', {
+        nombre: user.nombre,
+        apellido: user.apellido,
+        usuario: user.username,
+        f_nacimiento: user.f_nacimiento,
+        correo: user.email,
+        genero: user.genero === 'M' ? 'Hombre': 'Mujer'
+    });
+    console.log(req.session.UserId);
 }
