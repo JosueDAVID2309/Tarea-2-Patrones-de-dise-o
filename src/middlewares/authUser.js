@@ -18,7 +18,7 @@ exports.autenticarUser = async (req, res, next) => {
 
             req.session.UserId = user.id;
             req.user = user; 
-            console.log(req.session.UserId);
+            console.log('filtro superado');
             next();
         });
 
@@ -28,8 +28,11 @@ exports.autenticarUser = async (req, res, next) => {
 };
 
 exports.verificarSesion = (req, res, next) => {
+    
     if (!req.session.UserId) {
         return res.redirect('/login');
     }
+    console.log('filtro superado');
+    console.log(`userID =  ${req.session.UserId}`)
     next();
 }

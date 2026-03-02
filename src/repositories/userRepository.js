@@ -35,3 +35,12 @@ exports.buscarUser = async (email) => {
     return rows[0] || null;
 };
 
+exports.buscarPorId = async (id) => {
+    const [rows] = await db.query(
+        'SELECT * FROM usuarios WHERE id = ?',
+        [id]
+    );
+
+    return rows[0] || null;
+};
+

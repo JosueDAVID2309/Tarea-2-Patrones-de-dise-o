@@ -8,7 +8,11 @@ const taskRep = require('../repositories/taskRepository');
 router.get('/', (req, res) =>{res.render('login', {error: null })})
 router.get('/registro', (req, res) => { res.render('registro') });
 
-router.all('/login', authUser.autenticarUser ,AuthController.login);
+router.get('/login', (req, res) => {
+    res.render('login', { error: null });
+});
+
+router.post('/login', authUser.autenticarUser, AuthController.login);
 
 router.get('/post' , (req, res) => {
     res.render('inicio');
@@ -23,5 +27,19 @@ router.get('/tareas', async (req, res) => {
         tareas: tasks
     })
 })
+
+router.get('/tarea/:id', async (req, res) => {
+    const tarea = await taskRep.buscarTarea(req.params.id)
+    console.log(tarea.id)
+    res.render('partials/editTasks', {
+        id: tarea.id,
+        titulo: tarea.titulo,
+        contenido: tarea.contenido
+    });
+})
+
+router.post('/tarea/edit/:id', TaskController.editarTarea);
+
+router.get('/inicio', authUser.verificarSesion, AuthController.mostrarInicio);
 
 module.exports = router;

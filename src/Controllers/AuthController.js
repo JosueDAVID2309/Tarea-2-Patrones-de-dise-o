@@ -6,6 +6,8 @@ exports.login = async (req, res) =>{
     const user = req.user; 
     const tasks = await repTasks.obtenerTareas();
     
+    console.log("Se inicio sesion")
+    console.log(req.session.UserId)
 
     res.render('inicio', {
         nombre: user.nombre,
@@ -39,3 +41,24 @@ exports.registro = async (req, res) =>{
 
     console.log(req.session.UserId)
 }
+
+exports.mostrarInicio = async (req, res, next) => {
+    try {
+        console.log(req.session.UserId)
+        const user = await repUser.buscarPorId(req.session.UserId);
+        const tasks = await repTasks.obtenerTareas();
+        console.log(req.session.UserId)
+        res.render('inicio', {
+            nombre: user.nombre,
+            apellido: user.apellido,
+            usuario: user.username,
+            f_nacimiento: userService.formatearFecha(user.f_nacimiento),
+            correo: user.email,
+            genero: user.genero === 'M' ? 'Hombre': 'Mujer',
+            tareas: tasks
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};

@@ -18,6 +18,11 @@ exports.obtenerTareas = async (filtros = {}) => {
     return rows;
 };
 
+exports.buscarTarea = async (id) =>{
+    const [rows] = await db.query('SELECT * FROM tareas WHERE id = ?', [id]);
+    return rows[0] || null;
+}
+
 exports.crearTarea = async (titulo, contenido, id_usuario, estado) => {
     const [result] = await db.query(
         'INSERT INTO tareas (titulo, contenido, id_usuario, estado) VALUES (?, ?, ?, ?)',
