@@ -32,10 +32,10 @@ exports.crearTarea = async (titulo, contenido, id_usuario, estado) => {
     return result.insertId;
 };
 
-exports.editarTarea = async (id, tituto, contenido, estado) => {
+exports.editarTarea = async (id, titulo, contenido, estado) => {
     const [result] = await db.query(
         'UPDATE tareas SET titulo = ?, contenido = ?, estado = ? WHERE id = ?',
-        [tituto, contenido, estado, id]
+        [titulo, contenido, estado, id]
     );
 
     return result.affectedRows > 0;

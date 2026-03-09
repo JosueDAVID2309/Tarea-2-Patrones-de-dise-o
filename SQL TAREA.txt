@@ -1,0 +1,50 @@
+CREATE DATABASE tareas_tasks;
+USE tareas_tasks;
+CREATE TABLE usuarios (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    f_nacimiento DATE NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    genero CHAR(1) NOT NULL
+);
+
+INSERT INTO usuarios 
+(nombre, apellido, username, f_nacimiento, email, password, genero)
+VALUES
+(
+    'Carlos', 'Ramirez', 'carlosr', '1998-04-15', 'carlos.ramirez@email.com',
+    '123', 'M'
+),
+(
+    'Lucia', 'Fernandez', 'luciaf', '2001-09-22', 'lucia.fernandez@email.com',
+    'abc', 'F'
+);
+
+CREATE TABLE tareas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(100) NOT NULL,
+    contenido TEXT NOT NULL,
+    id_usuario INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    estado TINYINT(1) NOT NULL DEFAULT 0,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+        ON DELETE CASCADE
+);
+
+INSERT INTO tareas (titulo, contenido, id_usuario, estado)
+VALUES
+(
+    'Configurar proyecto Express',
+    'Instalar dependencias, configurar estructura MVC y conexión a la base de datos.', 1, 0
+),
+(
+    'Diseñar vista de perfil',
+    'Crear plantilla EJS para mostrar información del usuario autenticado.', 2, 0
+),
+(
+    'Implementar autenticación JWT',
+    'Crear middleware para validar token y proteger rutas privadas.', 1, 1
+);

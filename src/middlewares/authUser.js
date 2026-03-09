@@ -32,7 +32,5 @@ exports.verificarSesion = (req, res, next) => {
     if (!req.session.UserId) {
         return res.redirect('/login');
     }
-    console.log('filtro superado');
-    console.log(`userID =  ${req.session.UserId}`)
     next();
 }
