@@ -20,7 +20,14 @@
             genero: genero
         }) %>
 
+        <%- include('partials/buttonAction',{
+            action: '/logout',
+            method: 'GET',
+            proceso: 'Cerrar Sesion'
+        }) %>
     </div>
+
+
 
     <!-- Columna derecha -->
     <div class="right">

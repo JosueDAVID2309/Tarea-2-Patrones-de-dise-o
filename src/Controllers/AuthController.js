@@ -26,20 +26,23 @@ exports.registro = async (req, res) =>{
         req.body.usuario, req.body.f_nacimiento, 
         req.body.correo, req.body.clave, req.body.genero
     );
+    const userT = await repUser.buscarPorId(user);
 
     const tasks = await repTasks.obtenerTareas();
     req.session.UserId = user;
+
+    console.log(`Se creo un nuevo registro ${user}`)
+
+
     res.render('inicio', {
-        nombre: user.nombre,
-        apellido: user.apellido,
-        usuario: user.username,
-        f_nacimiento: userService.formatearFecha(user.f_nacimiento),
-        correo: user.email,
-        genero: user.genero === 'M' ? 'Hombre': 'Mujer',
+        nombre: userT.nombre,
+        apellido: userT.apellido,
+        usuario: userT.username,
+        f_nacimiento: userService.formatearFecha(userT.f_nacimiento),
+        correo: userT.email,
+        genero: userT.genero === 'M' ? 'Hombre': 'Mujer',
         tareas: tasks
     });
-
-    console.log(req.session.UserId)
 }
 
 exports.mostrarInicio = async (req, res, next) => {
@@ -62,3 +65,17 @@ exports.mostrarInicio = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.logout = (req, res) => {
+    req.session.destroy(function(err){
+        if (err) {
+            console.error(err);
+            return res.status(500).send('No se pudo cerrar sesión');
+        }
+    })
+
+    console.log('se cerro sesion satisfatoriamente')
+
+    res.clearCookie('connect.sid');
+    res.redirect('/');
+}
