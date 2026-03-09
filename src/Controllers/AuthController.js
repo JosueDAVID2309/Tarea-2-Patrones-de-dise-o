@@ -5,9 +5,6 @@ const userService = require('../service/userService')
 exports.login = async (req, res) =>{
     const user = req.user; 
     const tasks = await repTasks.obtenerTareas();
-    
-    console.log("Se inicio sesion")
-    console.log(req.session.UserId)
 
     res.render('inicio', {
         nombre: user.nombre,
@@ -31,9 +28,6 @@ exports.registro = async (req, res) =>{
     const tasks = await repTasks.obtenerTareas();
     req.session.UserId = user;
 
-    console.log(`Se creo un nuevo registro ${user}`)
-
-
     res.render('inicio', {
         nombre: userT.nombre,
         apellido: userT.apellido,
@@ -45,25 +39,19 @@ exports.registro = async (req, res) =>{
     });
 }
 
-exports.mostrarInicio = async (req, res, next) => {
-    try {
-        console.log(req.session.UserId)
-        const user = await repUser.buscarPorId(req.session.UserId);
-        const tasks = await repTasks.obtenerTareas();
-        console.log(req.session.UserId)
-        res.render('inicio', {
-            nombre: user.nombre,
-            apellido: user.apellido,
-            usuario: user.username,
-            f_nacimiento: userService.formatearFecha(user.f_nacimiento),
-            correo: user.email,
-            genero: user.genero === 'M' ? 'Hombre': 'Mujer',
-            tareas: tasks
-        });
+exports.mostrarInicio = async (req, res) => {
+    const user = await repUser.buscarPorId(req.session.UserId);
+    const tasks = await repTasks.obtenerTareas();
+    res.render('inicio', {
+        nombre: user.nombre,
+        apellido: user.apellido,
+        usuario: user.username,
+        f_nacimiento: userService.formatearFecha(user.f_nacimiento),
+        correo: user.email,
+        genero: user.genero === 'M' ? 'Hombre': 'Mujer',
+        tareas: tasks
+    });
 
-    } catch (error) {
-        next(error);
-    }
 };
 
 exports.logout = (req, res) => {
@@ -73,9 +61,6 @@ exports.logout = (req, res) => {
             return res.status(500).send('No se pudo cerrar sesión');
         }
     })
-
-    console.log('se cerro sesion satisfatoriamente')
-
     res.clearCookie('connect.sid');
     res.redirect('/');
 }
